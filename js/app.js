@@ -15,117 +15,165 @@ let hoursOfOperation = [
 "15:00", "16:00", "17:00", "18:00"
 ]
 // /////////////////////////////////////////////
+
 function seattleStore(){
-var seattle = {
-  min : 23,
-  max : 65,
-  average: 6.3,
- salesPerHour : [],
- generateHourlySales: function () {
-   for (var i = 0; i < hoursOfOperation.length; i++) {
-     var cookiesAtThis = Math.floor(randomizeIt(this.min, this.max) * this.average) 
-     this.salesPerHour.push(cookiesAtThis)
-   }
- }
-}
-seattle.generateHourlySales();
-console.log(seattle.salesPerHour)
-
-
-
-var storeSales = seattle.sales;
-
- var putItHere = document.getElementById("listBox1")
- var ul = document.createElement('ul')
- putItHere.appendChild(ul)
-
-for (var i = 0; i < hoursOfOperation.length; i++) {
-  var li = document.createElement('li');
-  li.textContent = ` Seattle ${hoursOfOperation[i]} estimated cookie sales ${seattle.salesPerHour[i]}`;
-  ul.appendChild(li)
-}
-}
-
-function tokiyoStore(){
-  var tokiyo = {
-    min : 3,
-    max : 24,
-    average: 1.2,
+  var seattle = {
+    min : 6,
+    max : 20,
+    average: 4.6,
    salesPerHour : [],
+   total : 0,
    generateHourlySales: function () {
      for (var i = 0; i < hoursOfOperation.length; i++) {
        var cookiesAtThis = Math.floor(randomizeIt(this.min, this.max) * this.average) 
        this.salesPerHour.push(cookiesAtThis)
      }
-   }
+   },
+   generateTotals: function () {
+     for (var i = 0; i < seattle.salesPerHour.length; i++) {
+         seattle.total += seattle.salesPerHour[i];   
+     }
+   }        
   }
-  tokiyo.generateHourlySales();
-  console.log(tokiyo.salesPerHour)
-  var storeSales = tokiyo.sales;
-   var putItHere = document.getElementById("listBox2")
+  seattle.generateHourlySales();
+  seattle.generateTotals();
+  var storeSales = seattle.sales;
+   var putItHere = document.getElementById("listBox4")
    var ul = document.createElement('ul')
    putItHere.appendChild(ul)
   
-  for (var i = 0; i < hoursOfOperation.length; i++) {
+  for (var i = 0, total =0; i < hoursOfOperation.length; i++) {
     var li = document.createElement('li');
-    li.textContent = `Tokiyo ${hoursOfOperation[i]} estimated cookie sales ${tokiyo.salesPerHour[i]}`;
+
+    
+    var liTotal = document.createElement('li')
+    li.textContent = `Seattle ${hoursOfOperation[i]} estimated cookie sales ${seattle.salesPerHour[i]}`;
     ul.appendChild(li)
-  }
+  }     
+var appendTotal = document.createElement('li')
+li.textContent = `The estimated totals for the Seattle location is ${seattle.total}`
+ li.appendChild.appendTotal     
   }
 
-  function dubaiStore(){
-    var dubai = {
-      min : 11,
-      max : 38,
-      average: 3.7,
+
+  function tokiyoStore(){
+    var tokiyo = {
+      min : 3,
+      max : 46,
+      average: 2.6,
      salesPerHour : [],
+     total : 0,
      generateHourlySales: function () {
        for (var i = 0; i < hoursOfOperation.length; i++) {
          var cookiesAtThis = Math.floor(randomizeIt(this.min, this.max) * this.average) 
          this.salesPerHour.push(cookiesAtThis)
        }
-     }
+     },
+     generateTotals: function () {
+       for (var i = 0; i < tokiyo.salesPerHour.length; i++) {
+           tokiyo.total += tokiyo.salesPerHour[i];   
+       }
+     }        
     }
-    dubai.generateHourlySales();
-    console.log(dubai.salesPerHour)
-    var storeSales = dubai.sales;
-     var putItHere = document.getElementById("listBox3")
+    tokiyo.generateHourlySales();
+    tokiyo.generateTotals();
+    var storeSales = tokiyo.sales;
+     var putItHere = document.getElementById("listBox4")
      var ul = document.createElement('ul')
      putItHere.appendChild(ul)
     
-    for (var i = 0; i < hoursOfOperation.length; i++) {
+    for (var i = 0, total =0; i < hoursOfOperation.length; i++) {
       var li = document.createElement('li');
-      li.textContent = `Dubai ${hoursOfOperation[i]} estimated cookie sales ${dubai.salesPerHour[i]}`;
+  
+      
+      var liTotal = document.createElement('li')
+      li.textContent = `Tokiyo ${hoursOfOperation[i]} estimated cookie sales ${tokiyo.salesPerHour[i]}`;
       ul.appendChild(li)
-    }
+    }     
+  var appendTotal = document.createElement('li')
+  li.textContent = `The estimated totals for the Tokiyo location is ${tokiyo.total}`
+   li.appendChild.appendTotal     
     }
 
-    function parisStore(){
-      var paris = {
-        min : 20,
-        max : 38,
-        average: 2.3,
+    function dubaiStore(){
+      var dubai = {
+        min : 3,
+        max : 46,
+        average: 2.6,
        salesPerHour : [],
+       total : 0,
        generateHourlySales: function () {
          for (var i = 0; i < hoursOfOperation.length; i++) {
            var cookiesAtThis = Math.floor(randomizeIt(this.min, this.max) * this.average) 
            this.salesPerHour.push(cookiesAtThis)
          }
-       }
+       },
+       generateTotals: function () {
+         for (var i = 0; i < dubai.salesPerHour.length; i++) {
+             dubai.total += dubai.salesPerHour[i];   
+         }
+       }        
       }
-      paris.generateHourlySales();
-      console.log(paris.salesPerHour)
-      var storeSales = paris.sales;
+      dubai.generateHourlySales();
+      dubai.generateTotals();
+      var storeSales = dubai.sales;
        var putItHere = document.getElementById("listBox4")
        var ul = document.createElement('ul')
        putItHere.appendChild(ul)
       
-      for (var i = 0; i < hoursOfOperation.length; i++) {
+      for (var i = 0, total =0; i < hoursOfOperation.length; i++) {
         var li = document.createElement('li');
-        li.textContent = `Paris ${hoursOfOperation[i]} estimated cookie sales ${paris.salesPerHour[i]}`;
+    
+        
+        var liTotal = document.createElement('li')
+        li.textContent = `Dubai ${hoursOfOperation[i]} estimated cookie sales ${dubai.salesPerHour[i]}`;
         ul.appendChild(li)
+      }     
+    var appendTotal = document.createElement('li')
+    li.textContent = `The estimated totals for the Dubai location is ${dubai.total}`
+     li.appendChild.appendTotal     
       }
-      }
+
+      function parisStore(){
+        var paris = {
+          min : 3,
+          max : 46,
+          average: 2.6,
+         salesPerHour : [],
+         total : 0,
+         generateHourlySales: function () {
+           for (var i = 0; i < hoursOfOperation.length; i++) {
+             var cookiesAtThis = Math.floor(randomizeIt(this.min, this.max) * this.average) 
+             this.salesPerHour.push(cookiesAtThis)
+           }
+         },
+         generateTotals: function () {
+           for (var i = 0; i < paris.salesPerHour.length; i++) {
+               paris.total += paris.salesPerHour[i];   
+           }
+         }        
+        }
+        paris.generateHourlySales();
+        paris.generateTotals();
+        var storeSales = paris.sales;
+         var putItHere = document.getElementById("listBox4")
+         var ul = document.createElement('ul')
+         putItHere.appendChild(ul)
+        
+        for (var i = 0, total =0; i < hoursOfOperation.length; i++) {
+          var li = document.createElement('li');
+      
+          
+          var liTotal = document.createElement('li')
+          li.textContent = `Paris ${hoursOfOperation[i]} estimated cookie sales ${paris.salesPerHour[i]}`;
+          ul.appendChild(li)
+        }     
+      var appendTotal = document.createElement('li')
+      li.textContent = `The estimated totals for the Dubai location is ${paris.total}`
+       li.appendChild.appendTotal     
+        }
+
+
 
       function limaStore(){
         var lima = {
@@ -133,15 +181,21 @@ function tokiyoStore(){
           max : 16,
           average: 4.6,
          salesPerHour : [],
+         total : 0,
          generateHourlySales: function () {
            for (var i = 0; i < hoursOfOperation.length; i++) {
              var cookiesAtThis = Math.floor(randomizeIt(this.min, this.max) * this.average) 
              this.salesPerHour.push(cookiesAtThis)
            }
-         }
+         },
+         generateTotals: function () {
+           for (var i = 0; i < lima.salesPerHour.length; i++) {
+               lima.total += lima.salesPerHour[i];   
+           }
+         }        
         }
         lima.generateHourlySales();
-        console.log(lima.salesPerHour)
+        lima.generateTotals();
         var storeSales = lima.sales;
          var putItHere = document.getElementById("listBox4")
          var ul = document.createElement('ul')
@@ -154,11 +208,10 @@ function tokiyoStore(){
           var liTotal = document.createElement('li')
           li.textContent = `Lima ${hoursOfOperation[i]} estimated cookie sales ${lima.salesPerHour[i]}`;
           ul.appendChild(li)
-        }
-        
-        console.log(total)
-        ul.appendChild(liTotal)
-        
+        }     
+      var appendTotal = document.createElement('li')
+      li.textContent = `The estimated totals for the Lima location is ${lima.total}`
+       li.appendChild.appendTotal     
         }
 
         
