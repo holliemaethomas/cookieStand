@@ -16,38 +16,88 @@ let hoursOfOperation = [
 ]
 
 let allStores = [];
-// /////////////////////////////////////////////
 
-let LocationData = document.createElement('table')
+var tableLocation = document.getElementById('table')
+var projectedCustomers = [];
+var randomizeIt = function (min, max) {
+for (var i = 0; i < hoursOfOperation.length; i++){
+  projectedCustomers.push(Math.round(Math.random() * (max - min) + min))
+} return projectedCustomers;
+}
+// / end global
 
-// This is my constructor function, it constructs store objects 
-
-function Store (customerMin, customerMax, averagePurchase, location) {
-  this.customerMin = customerMin,
-  this.customerMax = customerMax,
-  this.averagePurchase = averagePurchase,
-  this.Storelocation = 'location',
-  this.averagePurchase = averagePurchase, 
-  this.expectedCustomers = randomizeIt(this.customerMax, this.customerMin),
-  this.hourlyTotal = 0,
-  this.dailyTotal = 0,
-  allStores.push(this)
+function Store (minimumCustomer, maximumCustomer, averageSale, storeLocation) {
+  this.minimumCustomer = minimumCustomer,
+  this.maximumCustomer = maximumCustomer, 
+  this.averageSale = averageSale,
+  this.storeLocation = storeLocation,
+  this.projectedCustomers = randomizeIt(minimumCustomer, maximumCustomer)
+  this.total = 0; 
+  this.cookiesByHour = [];
+  allStores.push(this) 
 }
 
-// this is my render function it takes inforation from the store object and renders it in a table
-Store.prototype.render = function() {
-  let tableRow = document.createElement('tr')
-  let firstTableColumn = document.createElement('td')
-  tableColumn.textContent = this.storeLocation
-  tableRow.appendChild(firstTableColumn)
-  for (var i = 0; i < hoursOfOperation.length; i++) {
-    let column = document.createElement('td')
-    column.textContent = this.expectedCustomers
-    tableRow.appendChild(column)
-    this.hourlytotal = this.expectedCustomers * this.estimatedPurchases
-  
+Store.prototype.render = function () {
+  var row = document.createElement('tr');
+  var firstCol = document.createElement('td');
+  firstcol.textContent = this.storeLocation
+  row.appendChild(firstCol)
+
+  for (var i in hoursOfOperation) {
+    var totalCol = document.createElement('td')
+    totalCol.textContent = `total   ${this.total}`
+    row.appendChild(totalCol)
+
+    tableLocation.appendChild(row);
   }
 }
+function renderAll() {
+for (var i in allStores){
+  allStores[i].render();
+}
+}
 
+function makeFooterRow() {
+  var bottomRow = document.createElement('tr');
+  var bottomColumn = document.createElement('td');
+  bottomColumn.textContent = 'Hourly Totals '
+  bottomRow.appendChild(bottomColumn);
+  tableLocation.appendChild(bottomRow)
 
-let seattle = new Store(23, 65, 6.3, 'Seattle' )
+  var hourlyTotal = [];
+  for (var i in hoursOfOperation) {
+    hourlyTotal.push(0)
+    for (var h in allStores) {
+      hourlyTotal[i] += allStores[h].cookiesByHour[i]
+      console.log (hourlyTotal)
+    }
+    var hourlyTotalColumn = document.createElement('td')
+    hourlyTotalColumn.textContent = hourlyTotal[i];
+    bottomRow.appendChild(hourlyTotalColumn)
+  }
+
+}
+var makeHeaderRow = function () {
+  var textBox = document.createElement('th')
+  var topRow = document.createElement('tr');
+  textBox.textContent = 'Hours Of Operation'
+  topRow.appendChild(textBox)
+  for (var q in hoursOfOperation) {
+    var headerCol = document.createElement('th');
+    headerCol.textContent = hoursOfOperation[q];
+    tableLocation.appendChild(topRow);
+    topRow.appendChild(headerCol);
+    console.log(headerCol)
+  }
+}
+renderAll();
+makeFooterRow();
+makeHeaderRow();
+
+var seattle = new Store(6, 20, 3, seattle);
+var tokiyo = new Store(3, 9, 2, tokiyo);
+var dubai = new Store(4, 8, 1, dubai);
+var paris = new Store(11, 8, 2, paris);
+var lima = new Store( 4, 20, 3, lima); 
+
+// some credit on this lab goes to hollie thomas
