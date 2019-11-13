@@ -15,6 +15,7 @@ let hoursOfOperation = [
 "15:00", "16:00", "17:00", "18:00"
 ]
 
+
 let allStores = [];
 
 var tableLocation = document.getElementById('table')
