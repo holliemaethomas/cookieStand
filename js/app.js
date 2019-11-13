@@ -2,6 +2,7 @@
 
 //global variables
 
+
 var allStores = [];
 var inputArea = document.getElementById('input-area');
 var storeTable = document.getElementById("store-table");
@@ -12,7 +13,7 @@ var randomNumberGenerator = function (max, min) {
     projectedCustomers.push(Math.round(Math.random() * (max - min) + min))
   }
   return projectedCustomers;
-}
+
 
 var hoursOfOperation = ['0600:', '0700:', '0800:', '0900:', '1000:', '1100:', '1200:', '1300:', '1400:', '1500:', '1600:', '1700:', '1800:', '1900:']
 //global variable
