@@ -1,3 +1,7 @@
 body {
   background-color: aqua;
 }
+
+ main table {
+  border: 2px black;
+}
