@@ -33,16 +33,16 @@ function Store(maximumCustomer, minimumCustomer, averageSale, location) {
   this.averageSale = averageSale
   this.location = location
   this.hourlyProjectedSales = []
-  this.dailyTotal = 0;
-  this.hourlyTotal = 0;
-  this.hourlyTotalSum = [];
-  this.generateDailyTotals();
+  this.dailyTotal = 0
+  this.hourlyTotal = 0
+  this.hourlyTotalSum = []
+  this.generateDailyTotals()
   allStores.push(this)
-  this.makeTableBody();
+  this.makeTableBody()
 
 }
 console.log(allStores);
-// console.log(globalProjectedSales);
+
 
 
 // this function generates daily totals
@@ -54,7 +54,7 @@ Store.prototype.generateDailyTotals = function () {
     this.dailyTotal += randomAverageSale;
   }
   dailyTotalArray.push(this.dailyTotal);
-  // globalProjectedSales.push(this.hourlyProjectedSales);
+  globalProjectedSales.push(this.hourlyProjectedSales);
 };
 
 Store.prototype.makeTableBody = function () {
@@ -84,27 +84,17 @@ var makeHeaderRow = function () {
 };
 makeHeaderRow();
 
-var createFooter = function () {
-  var footer = document.createElement('tfoot');
-  table.appendChild(footer);
-  var createSpace = document.createElement('tr');
-  footer.appendChild(createSpace);
-  for (var i = 0; i < hours.length; i++) {
-    var totalCells = document.createElement('td');
-    createSpace.appendChild(totalCells);
-    totalCells.textContent = hourlyTotalArray[i];
-  }
-};
-
-// change footer function to represent hourly totals
-// write function to get hourly totals
-// create hourly totals as footer
-// move daily totals to equal allStores.length (each store instance)
-// right now we have daily totals being forced as hourly. thats why it doesn't match the array/
-
-
-
-
+// var createFooter = function () {
+//   var footer = document.createElement('tfoot');
+//   table.appendChild(footer);
+//   var createSpace = document.createElement('tr');
+//   footer.appendChild(createSpace);
+//   for (var i = 0; i < hours.length; i++) {
+//     var totalCells = document.createElement('td');
+//     createSpace.appendChild(totalCells);
+//     totalCells.textContent = globalProjectedSales;
+//   }
+// };
 
 
 var seattle = new Store(65, 23, 6.3, 'Seattle');
