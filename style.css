@@ -5,3 +5,9 @@ body {
  main table {
   border: 2px black;
 }
+
+hr {
+  border: 0; 
+  height: 10px;
+  background-image: url('../chocolatePizza/img/hr-img.png') ;
+}

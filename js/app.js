@@ -34,11 +34,12 @@ function Store(maximumCustomer, minimumCustomer, averageSale, location) {
   this.location = location
   this.hourlyProjectedSales = []
   this.dailyTotal = 0
-  this.hourlyTotal = 0
+  // this.hourlyTotal = 0
   this.hourlyTotalSum = []
   this.generateDailyTotals()
   allStores.push(this)
   this.makeTableBody()
+  this.gethourly()
 
 }
 console.log(allStores);
@@ -56,6 +57,16 @@ Store.prototype.generateDailyTotals = function () {
   dailyTotalArray.push(this.dailyTotal);
   globalProjectedSales.push(this.hourlyProjectedSales);
 };
+console.log(globalProjectedSales);
+
+Store.prototype.gethourly = function () {
+  var hourlyTotal = 0; 
+  for (var i = 0; i < this.hourlyProjectedSales.length; i++) {
+    hourlyTotal += this.hourlyProjectedSales[i];
+  } console.log(hourlyTotal);
+  hourlyTotalArray.push(hourlyTotal);
+  console.log(hourlyTotalArray);
+} 
 
 Store.prototype.makeTableBody = function () {
   container.appendChild(table);
@@ -84,17 +95,22 @@ var makeHeaderRow = function () {
 };
 makeHeaderRow();
 
-// var createFooter = function () {
-//   var footer = document.createElement('tfoot');
-//   table.appendChild(footer);
-//   var createSpace = document.createElement('tr');
-//   footer.appendChild(createSpace);
-//   for (var i = 0; i < hours.length; i++) {
-//     var totalCells = document.createElement('td');
-//     createSpace.appendChild(totalCells);
-//     totalCells.textContent = globalProjectedSales;
-//   }
-// };
+var createFooter = function () {
+  var footer = document.createElement('tfoot');
+  table.appendChild(footer);
+  var createSpace = document.createElement('tr');
+  footer.appendChild(createSpace);
+  for (var i = 0; i < hours.length; i++) {
+    var totalCells = document.createElement('td');
+    createSpace.appendChild(totalCells);
+    for (var j = 0; j < hourlyTotalArray.length; j++) {
+
+      totalCells.textContent = `${hourlyTotalArray[i]}`;
+    }
+  }
+};
+
+// take a look at hourlytotal array againb, 
 
 
 var seattle = new Store(65, 23, 6.3, 'Seattle');
@@ -106,6 +122,7 @@ var dubai = new Store(11, 38, 2.3, 'Dubai');
 var paris = new Store(2, 16, 4.6, 'Paris');
 // allStores.push(paris);
 var lima = new Store(20, 38, 3.2, 'Lima');
+
 createFooter();
 // allStores.push(lima);
 
