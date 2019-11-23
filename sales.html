@@ -6,13 +6,45 @@
   <link href="https://fonts.googleapis.com/css?family=Alegreya|Indie+Flower" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
+<main>
   <h1 id="salesTitle">Sales Tracker</h1>
-  <table id="store-table"> </table>
+  <table id="storeTable"> </table> 
+
+  <form action ="js/app.js" id="form">
+    <h1>Add new store</h1>
+
+    <label>Add Location</label>
+    <input name="addnewlocation" placeholder="Locaton" type="text">
+
+    <label>Customer Maximum</label>
+    <input name="maxcustomers" placeholder="Maximum Customers" type="number">
+
+    <label>Customer Minimium</label>
+    <input name="mincustomers" placeholder="Minimum Customers" type="number">
+
+
+    <label>Average customer purchase</label>
+    <input name="averagepurchase" placeholder="Average Customer purchase" type="number">
+
+    <button type="submit">Add New</button>
+    
+  </form>
+  <table id="displayNewStore">
+    <thead>
+      <tr>
+        <th>New Store</th>
+      </tr>
+    </thead>
+    <tbody>
+
+    </tbody>
+    <tfoot></tfoot>
+  </table> -->
 
 <a href="index.html">home</a>
   <script src="js/app.js"></script>
+</main>
 </body>
 
 </html>
