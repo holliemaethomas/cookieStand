@@ -1,29 +1,24 @@
 'use strict';
 
 //GLOBAL
-var container = document.getElementById('storeTable');
+var table = document.getElementById('table')
 
-var table = document.createElement('table');
+var form = document.getElementById('inputArea')
 
-var tableBody = document.createElement('tb');
-
-var dailyTotalArray = [];
-
-var hourlyTotalArray = [];
+form.addEventListener("submit", AddNewStore)
 
 var allStores = [];
 
-let estimatedCustomers = [];
-
-var globalProjectedSales = [];
-
-
-
-let hours = ['06:00 ', '07:00 ', '08:00 ', '09:00 ', '10:00 ', '11:00 ', '12:00 ', '13:00 ', '14:00 ', '15:00 ', '16:00 ', '17:00 '];
+var hours = ['06:00 ', '07:00 ', '08:00 ', '09:00 ', '10:00 ', '11:00 ', '12:00 ', '13:00 ', '14:00 ', '15:00 ', '16:00 ', '17:00 '];
 
 let randomize = function (max, min) {
-  return (Math.ceil(Math.random() * (max - min) + min))
-};
+  var averageCustomer = []
+  for (var i = 0; i < hours.length; i++) {
+  averageCustomer.push(Math.round(Math.random() * (max - min) + min))
+} return averageCustomer
+}
+
+
 
 // END GLOBAL 
 
@@ -31,128 +26,106 @@ function Store(maximumCustomer, minimumCustomer, averageSale, location) {
   this.maximumCustomer = maximumCustomer
   this.minimumCustomer = minimumCustomer
   this.averageSale = averageSale
+  this.averageCustomer = randomize(this.maximumCustomer, this.minimumCustomer)
   this.location = location
   this.hourlyProjectedSales = []
-  this.dailyTotal = 0
-  // this.hourlyTotal = 0
-  this.hourlyTotalSum = []
-  this.generateDailyTotals()
+  this.total = 0;
   allStores.push(this)
-  this.makeTableBody()
-  this.gethourly()
 
 }
-console.log(allStores);
 
 
 
-// this function generates daily totals
-Store.prototype.generateDailyTotals = function () {
+Store.prototype.render = function () {
+  var row = document.createElement('tr');
+  table.appendChild(row)
+  var firstCol = document.createElement('td')
+  firstCol.textContent = this.location
+  row.appendChild(firstCol);
+  
+
   for (var i = 0; i < hours.length; i++) {
-    var randomCustomerNum = randomize(this.maximumCustomer, this.minimumCustomer);
-    var randomAverageSale = Math.ceil(randomCustomerNum * this.averageSale);
-    this.hourlyProjectedSales.push(randomAverageSale);
-    this.dailyTotal += randomAverageSale;
+    var col = document.createElement('td')
+    var data = Math.floor(this.averageCustomer[i] * this.averageSale)
+    col.textContent = data
+
+    row.appendChild(col)
+    this.total += data
+    this.hourlyProjectedSales.push(data)
+    table.appendChild.row
   }
-  dailyTotalArray.push(this.dailyTotal);
-  globalProjectedSales.push(this.hourlyProjectedSales);
-};
-console.log(globalProjectedSales);
 
-Store.prototype.gethourly = function () {
-  var hourlyTotal = 0; 
-  for (var i = 0; i < this.hourlyProjectedSales.length; i++) {
-    hourlyTotal += this.hourlyProjectedSales[i];
-  } console.log(hourlyTotal);
-  hourlyTotalArray.push(hourlyTotal);
-  console.log(hourlyTotalArray);
-} 
+  var totalCol = document.createElement('td')
+  totalCol.textContent = 'total: ' + this.total
+  row.appendChild(totalCol)
 
-Store.prototype.makeTableBody = function () {
-  container.appendChild(table);
-  var tableBody = document.createElement('tbody');
-  table.appendChild(tableBody);
-  var dataSpace = document.createElement('tr');
-  tableBody.appendChild(dataSpace);
-  for (var j = 0; j < hours.length; j++) {
-    var dataCell = document.createElement('td');
-    dataSpace.appendChild(dataCell);
-    var content = this.hourlyProjectedSales[j];
-    var location = this.location;
-    dataCell.textContent = `${content}  `
-  };
+}
 
+function renderAll() {
+  for (var i in allStores) {
+    allStores[i].render()
+  }
+}
+
+function AddNewStore(event) {
+  event.preventDefault();
+  var newLocation = event.target.storeLocation.value;
+  var newMinimumCustomer = event.target.minimumCustomer.value;
+  var newMaximumCustomer = event.target.MaximumCustomer.value;
+  var newAverageSale = event.target.averageSale.value;
+
+  new Store(newMaximumCustomers, newMinimumCustomers, newAverageSale,
+    newLocation);
+
+  table.innerHTML = '';
+
+  makeHeaderRow();
+  renderAll();
+  makeFooterRow();
+}
+
+function makeFooterRow() {
+  var bottomRow = document.createElement('tr');
+  table.appendChild(bottomRow)
+  var bottomCol = document.createElement('td')
+
+  var hourlyTotal = []
+  for (var i in hours) {
+    hourlyTotal.push(0)
+    for (var h in allStores) {
+      hourlyTotal[i] += allStores[h].hourlyProjectedSales[i]
+    }
+    var hourlyTotalCol = document.createElement('td')
+    hourlyTotalCol.textContent = hourlyTotal[i]
+    bottomRow.appendChild(hourlyTotalCol)
+  }
 };
 
 var makeHeaderRow = function () {
-  var headerSpace = document.createElement('thead');
-  table.appendChild(headerSpace);
-  for (var i = 0; i < hours.length; i++) {
-    var timeSlot = document.createElement('td');
-    headerSpace.appendChild(timeSlot);
-    timeSlot.textContent = hours[i];
-  };
-};
-makeHeaderRow();
-
-var createFooter = function () {
-  var footer = document.createElement('tfoot');
-  table.appendChild(footer);
-  var createSpace = document.createElement('tr');
-  footer.appendChild(createSpace);
-  for (var i = 0; i < hours.length; i++) {
-    var totalCells = document.createElement('td');
-    createSpace.appendChild(totalCells);
-    for (var j = 0; j < hourlyTotalArray.length; j++) {
-
-      totalCells.textContent = `${hourlyTotalArray[i]}`;
-    }
+  var top = document.createElement('th')
+  table.appendChild(top)
+  var topContent = document.createElement('tr')
+  topContent.textContent = 'Hours of Operation' 
+  topContent.appendChild(top)
+  for (var m in hours) {
+    var headerCol = document.createElement('th');
+    headerCol.textContent = hours[m]
+    topContent.appendChild(headerCol)
   }
 };
 
-// take a look at hourlytotal array againb, 
-
 
 var seattle = new Store(65, 23, 6.3, 'Seattle');
-// allStores.push(seattle);
+
 var tokiyo = new Store(3, 24, 1.2, 'Tokiyo');
-// allStores.push(tokiyo);
-var dubai = new Store(11, 38, 2.3, 'Dubai');
-// allStores.push(dubai);
+
 var paris = new Store(2, 16, 4.6, 'Paris');
-// allStores.push(paris);
+
 var lima = new Store(20, 38, 3.2, 'Lima');
 
-createFooter();
-// allStores.push(lima);
+makeHeaderRow();
+renderAll();
+makeFooterRow();
 
-// Store.prototype.fillTable();
+// Used some my previous lab as an example cookie-store
 
-// form notes 
-
-// var form = document.getElementById('form');
-
-// AddNewStore.prototype.render = function () {
-//   var newStoreData = document.getElementById('dataEntryArea')
-// }
-
-// function AddNewStore (maximumCustomer, minimumCustomer, averageSale, location) {
-
-//   this.maximumCustomer = maximumCustomer;
-//   this.minimumCustomer = minimumCustomer;
-//   this.averageSale = averageSale;
-//   this.location = averageSale;
-// }
-
-// function submitHandler(event) {
-//   event.preventDefault();
-
-//   var newStore = new AddNewStore (event.target.maxCustomers.value)
-
-
-
-//   event.target.reset();
-
-// }
-
-// form.addEventListener('submit', submitHandler);
